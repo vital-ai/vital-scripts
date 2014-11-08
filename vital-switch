@@ -1,0 +1,34 @@
+#!/usr/bin/env groovy
+
+import static groovy.io.FileType.FILES
+
+String target = args[0]
+
+String basepath = ""
+
+String vhome = ""
+
+String path = basepath + target
+
+File f = new File(path)
+
+if( f.exists() ) {
+
+List cmd_rm = ['rm', vhome]
+
+def process_rm=new ProcessBuilder(cmd_rm).redirectErrorStream(true).start()
+process_rm.inputStream.eachLine {println it}
+
+List cmd_ln = ['ln', '-s', path, vhome]
+
+def process_ln=new ProcessBuilder(cmd_ln).redirectErrorStream(true).start()
+process_ln.inputStream.eachLine {println it}
+
+}
+else {
+
+println "VITAL_HOME target \"vitalhome-" + target + "\" doesn't exist."
+
+}
+
+
