@@ -12,7 +12,7 @@ String path = basepath + target
 
 File f = new File(path)
 
-if( f.exists() ) {
+if( f.exists() || java.nio.file.Files.isSymbolicLink( f.toPath() ) ) {
 
 List cmd_rm = ['rm', vhome]
 
